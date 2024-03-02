@@ -6,3 +6,8 @@ AGV_autobuild:
 basicmodel_autobuild:
 -
 ![video](https://github.com/TzuyenHuang/FlexSim/assets/75783579/79cf60c9-0820-4ca6-8b5c-ebd4745ac5e0)
+
+autobuild_dispatcher:
+-
+![video](https://github.com/TzuyenHuang/FlexSim/assets/75783579/93412406-85cb-472d-907b-7f0e3dc09788)
+
