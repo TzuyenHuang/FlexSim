@@ -1,0 +1,87 @@
+Object source=Object.create("Source");
+Object queue=Object.create("Queue");
+Object sink=Object.create("Sink");
+Object shuttle = createinstance(library().find("?TaskExecuter"), model());
+Object startCP = createinstance(library().find("/AGV/ControlPoint"), model());
+Object endCP = createinstance(library().find("/AGV/ControlPoint"), model());
+
+Object Source = Model.find("Source");
+Object Queue = Model.find("Queue");
+Object Sink = Model.find("Sink");
+
+setloc(Source,3,-2,0);
+setloc(Queue,6,-2,0);
+setloc(Sink,6,8,0);
+startCP.setLocation(6,0,0);
+endCP.setLocation(5,7,0);
+
+contextdragconnection(Source,Queue,"A");
+contextdragconnection(Queue,Sink,"A");
+contextdragconnection(Queue,shuttle,"S");
+contextdragconnection(Queue,startCP,"A");
+contextdragconnection(Sink,endCP,"A");
+
+Queue.setProperty("UseTransport",1);
+
+treenode path1 = createinstance(node("/AGV/StraightPath",library()),model());
+treenode path2 = createinstance(node("/AGV/StraightPath",library()),model());
+treenode path3 = createinstance(node("/AGV/StraightPath",library()),model());
+treenode path4 = createinstance(node("/AGV/StraightPath",library()),model());
+
+function_s(startCP,"finalizeSpatialChanges");
+function_s(endCP,"finalizeSpatialChanges");
+function_s(startCP,"addConnection",-1,shuttle);
+
+setsize(path1,8,1,1);
+setsize(path2,5,1,1);
+setsize(path3,8,1,1);
+setsize(path4,5,1,1);
+
+setloc(path1,1,0,0);
+setloc(path2,10,1,0);
+setloc(path3,9,7,0);
+setloc(path4,0,6,0);
+
+setrot(path2,0,0,90);
+setrot(path3,0,0,180);
+setrot(path4,0,0,270);
+
+function_s(path1, "finalizeSpatialChanges");
+function_s(path2, "finalizeSpatialChanges");
+treenode from = path1;
+treenode to = path2;
+if (isclasstype(from, "AGV::Path") && isclasstype(to, "AGV::Path")) {
+    double distAlongFrom = 2.5;
+    double distAlongTo = 0.16;
+    treenode newPath = applicationcommand("Path_joinTo", from, to, distAlongFrom, distAlongTo);
+}
+
+function_s(path2, "finalizeSpatialChanges");
+function_s(path3, "finalizeSpatialChanges");
+treenode from2 = path2;
+treenode to2 = path3;
+if (isclasstype(from2, "AGV::Path") && isclasstype(to2, "AGV::Path")) {
+    double distAlongFrom = 2.5;
+    double distAlongTo = 0.16;
+    treenode newPath = applicationcommand("Path_joinTo", from2, to2, distAlongFrom, distAlongTo);
+}
+
+function_s(path3, "finalizeSpatialChanges");
+function_s(path4, "finalizeSpatialChanges");
+treenode from3 = path3;
+treenode to3 = path4;
+if (isclasstype(from3, "AGV::Path") && isclasstype(to3, "AGV::Path")) {
+    double distAlongFrom = 2.5;
+    double distAlongTo = 0.16;
+    treenode newPath = applicationcommand("Path_joinTo", from3, to3, distAlongFrom, distAlongTo);
+}
+
+function_s(path4, "finalizeSpatialChanges");
+function_s(path1, "finalizeSpatialChanges");
+treenode from4 = path4;
+treenode to4 = path1;
+if (isclasstype(from4, "AGV::Path") && isclasstype(to4, "AGV::Path")) {
+    double distAlongFrom = 2.5;
+    double distAlongTo = 0.16;
+    treenode newPath = applicationcommand("Path_joinTo", from4, to4, distAlongFrom, distAlongTo);
+}
