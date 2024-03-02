@@ -1,7 +1,7 @@
 AGV_autobuild
 -
-![video](https://github.com/TzuyenHuang/FlexSim/assets/75783579/e1e524ef-95b8-40e3-8a7a-052d1da64e8d)
-![image](https://github.com/TzuyenHuang/FlexSim/assets/75783579/16ee5612-06d1-4d43-97af-0b8f2d07ade4)
+![video](https://github.com/TzuyenHuang/FlexSim/assets/75783579/11b7b336-9514-4f82-978d-aec05e28dd9b)
+![image](https://github.com/TzuyenHuang/FlexSim/assets/75783579/1e5876e8-3ff2-406d-9597-62e48b2c823e)
 
 basicmodel_autobuild
 -
