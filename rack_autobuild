@@ -1,0 +1,27 @@
+treenode path1 = createinstance(node("/AGV/StraightPath",library()),model());
+Object source=Object.create("Source");
+Object rack=Object.create("Rack");
+Object shuttle = createinstance(library().find("?TaskExecuter"), model());
+Object startCP = createinstance(library().find("/AGV/ControlPoint"), model());
+Object endCP = createinstance(library().find("/AGV/ControlPoint"), model());
+Object opath = path1;
+
+setsize(path1,30,1,1);
+
+setloc(path1,1,0,0);
+setloc(source,3,2,0);
+setloc(rack,8,4,0);
+startCP.setLocation(3,0,0);
+endCP.setLocation(26,0,0);
+
+contextdragconnection(source,rack,"A");
+contextdragconnection(source,shuttle,"S");
+contextdragconnection(source,startCP,"A");
+contextdragconnection(rack,endCP,"A");
+
+function_s(startCP,"finalizeSpatialChanges");
+function_s(endCP,"finalizeSpatialChanges");
+function_s(startCP,"addConnection",-1,shuttle);
+
+opath.setProperty("IsTwoWay", 1);
+source.setProperty("UseTransport",1);
