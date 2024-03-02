@@ -1,0 +1,22 @@
+int racknum =3;
+int yGridSize = 10;
+int numBays = 3;
+int numLevels = 4;
+double xSpacing = 3;
+double ySpacing = 3;
+double bayWidth =5;
+double levelHeight = 5;
+
+for(int i = 1; i <= racknum; i++) {
+ 	Object rack = createinstance(library().find("?Rack"), model());
+ 	rack.name = "Rack" + numtostring(i);
+	rack.location.x = floor((i - 1) / yGridSize) * xSpacing + 1;
+	rack.location.y = ((i - 1) % yGridSize + 1) * ySpacing;
+	Map dimensions=rack.getProperty("Dimensions");
+	dimensions.NumBays=numBays;
+	dimensions.BaySize=3;
+	dimensions.NumLevels=numLevels;
+	dimensions.SlotsPerBay=2;
+	dimensions.LevelSize=2;
+	rack.setProperty("Dimensions",dimensions);
+ }
