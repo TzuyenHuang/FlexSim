@@ -11,3 +11,7 @@ autobuild_dispatcher:
 -
 ![video](https://github.com/TzuyenHuang/FlexSim/assets/75783579/93412406-85cb-472d-907b-7f0e3dc09788)
 
+rack_autobuild:
+-
+![video](https://github.com/TzuyenHuang/FlexSim/assets/75783579/11acc60e-f9b8-46f8-9d07-ceed9f3cd7ed)
+![image](https://github.com/TzuyenHuang/FlexSim/assets/75783579/d8ad493e-fb3c-49cc-87d2-36e9b38738fb)
