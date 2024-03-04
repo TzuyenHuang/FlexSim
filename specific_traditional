@@ -1,0 +1,24 @@
+Object source = Object.create("Source");
+Object queue = Object.create("Queue");
+Object rack = Object.create("Rack");
+TaskExecuter asrsvehicle = Object.create("ASRSvehicle");
+
+Object Source = Model.find("Source");
+Object Queue = Model.find("Queue");
+Object Rack = Model.find("Rack");
+Object ASRSvehicle = Model.find("ASRSvehicle");
+
+Map dimensions = rack.getProperty("Dimensions");
+dimensions.NumBays = 2;
+dimensions.NumLevels = 3;
+rack.setProperty("Dimensions",dimensions);
+
+source.location = Vec3(0, 0, 0);
+queue.location = Vec3(15, 0, 0);
+rack.location = Vec3(5, 0, 0);
+asrsvehicle.location = Vec3(0, -5, 0);
+
+contextdragconnection(Source, Rack, "A");
+contextdragconnection(Rack, Queue, "A");
+contextdragconnection(Source, ASRSvehicle, "S");
+contextdragconnection(Rack, ASRSvehicle, "S");
