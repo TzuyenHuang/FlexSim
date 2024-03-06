@@ -27,15 +27,15 @@ Rack.setProperty("UseTransport", 1);
 ...source trigger...
 */
 
-Map dimensions = rack.getProperty("Dimensions");
+Map dimensions = Rack.getProperty("Dimensions");
 dimensions.NumBays = 2;
 dimensions.NumLevels = 3;
 dimensions.SlotsPerBay = 2;
-rack.setProperty("Dimensions",dimensions);
+Rack.setProperty("Dimensions",dimensions);
 
-rack.setProperty("SlotAssignmentStrategy", "Matching Labels");
+//Rack.setProperty("SlotAssignmentStrategy", "Matching Labels");
 
-for(int i = 0; i < rack.bays.length; i++){
-	Storage.Bay bay = rack.bays[i + 1];
+for(int i = 0; i < Rack.bays.length; i++){
+	Storage.Bay bay = Rack.bays[i + 1];
 	bay.setSlotLabels("Type", i + 1);
 }
