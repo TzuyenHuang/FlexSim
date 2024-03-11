@@ -1,0 +1,36 @@
+Object source = Object.create("Source");
+Object Source = Model.find("Source");
+source.location = Vec3(0, 0, 0);
+
+Storage.Object rack = Object.create("Rack");
+Object Rack = Model.find("Rack");
+rack.location = Vec3(5, 0, 0);
+
+TaskExecuter asrsvehicle = Object.create("ASRSvehicle");
+Object ASRSvehicle = Model.find("ASRSvehicle");
+asrsvehicle.location = Vec3(0, -5, 0);
+
+contextdragconnection(Source, Rack, "A");
+contextdragconnection(ASRSvehicle, Source, "S");
+
+Source.setProperty("UseTransport", 1);
+
+Map dimensions = Rack.getProperty("Dimensions");
+dimensions.NumBays = 3;
+dimensions.NumLevels = 5;
+dimensions.SlotsPerBay = 1;
+Rack.setProperty("Dimensions",dimensions);
+
+/*
+...Rack slot assignment strategy...
+*/
+
+asrsvehicle.setProperty("LiftSpeed", 2);
+asrsvehicle.setProperty("ExtensionSpeed", 2);
+
+asrsvehicle.setProperty("LoadTime", 3);
+asrsvehicle.setProperty("UnloadTime", 3);
+
+asrsvehicle.setProperty("MaxSpeed", 10);
+asrsvehicle.setProperty("Acceleration", 2);
+asrsvehicle.setProperty("Deceleration", 2);
