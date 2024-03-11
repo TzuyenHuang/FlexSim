@@ -1,0 +1,39 @@
+Object source = Object.create("Source");
+Object Source = Model.find("Source");
+source.location = Vec3(0, 0, 0);
+
+Storage.Object rack = Object.create("Rack");
+Object Rack = Model.find("Rack");
+rack.location = Vec3(5, 0, 0);
+
+Object queue = Object.create("Queue");
+Object Queue = Model.find("Queue");
+queue.location = Vec3(15, 0, 0);
+
+TaskExecuter asrsvehicle = Object.create("ASRSvehicle");
+Object ASRSvehicle = Model.find("ASRSvehicle");
+asrsvehicle.location = Vec3(0, -5, 0);
+
+contextdragconnection(Source, Rack, "A");
+contextdragconnection(Rack, Queue, "A");
+contextdragconnection(Source, ASRSvehicle, "S");
+contextdragconnection(Rack, ASRSvehicle, "S");
+
+Source.setProperty("UseTransport", 1);
+
+source.setProperty("ArrivalStyle", 2);
+/*
+...set arrival quantity...
+*/
+
+Rack.setProperty("UseTransport", 1);
+
+Map dimensions = Rack.getProperty("Dimensions");
+dimensions.NumBays = 3;
+dimensions.NumLevels = 5;
+dimensions.SlotsPerBay = 1;
+Rack.setProperty("Dimensions",dimensions);
+
+/*
+...set rack slot assignment strategy...
+*/
