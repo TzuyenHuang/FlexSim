@@ -1,3 +1,10 @@
+setviewtext(systemwindow(1), "");
+setviewtext(systemwindow(2), "");
+setviewtext(systemwindow(3), "");
+for(int n = content(model()); n > 1; n--){
+	destroyobject(rank(model(), n));
+}
+
 Object source = Object.create("Source");
 Object Source = Model.find("Source");
 source.location = Vec3(0, 0, 0);
