@@ -1,10 +1,17 @@
 Object source = Object.create("Source");
 Object Source = Model.find("Source");
 source.location = Vec3(0, 0, 0);
+Source.setProperty("UseTransport", 1);
 
 Storage.Object rack = Object.create("Rack");
 Object Rack = Model.find("Rack");
 rack.location = Vec3(5, 0, 0);
+Rack.setProperty("UseTransport", 1);
+Map dimensions = Rack.getProperty("Dimensions");
+dimensions.NumBays = 3;
+dimensions.NumLevels = 5;
+dimensions.SlotsPerBay = 1;
+Rack.setProperty("Dimensions",dimensions);
 
 Object queue = Object.create("Queue");
 Object Queue = Model.find("Queue");
@@ -19,21 +26,20 @@ contextdragconnection(Rack, Queue, "A");
 contextdragconnection(Source, ASRSvehicle, "S");
 contextdragconnection(Rack, ASRSvehicle, "S");
 
-Source.setProperty("UseTransport", 1);
+Source.setProperty("ArrivalStyle", 2);
+Table sourceArrivals = source.find(">variables/schedule");
+sourceArrivals[1][3] = 15;
 
-source.setProperty("ArrivalStyle", 2);
-/*
-...set arrival quantity...
-*/
-
-Rack.setProperty("UseTransport", 1);
-
-Map dimensions = Rack.getProperty("Dimensions");
-dimensions.NumBays = 3;
-dimensions.NumLevels = 5;
-dimensions.SlotsPerBay = 1;
-Rack.setProperty("Dimensions",dimensions);
-
-/*
-...set rack slot assignment strategy...
-*/
+//...set rack slot assignment strategy...
+for (int i = 0; i < rack.bays.length; i++){
+	Storage.Bay bay = rack.bays[i + 1];
+	for(int j = 0; j < bay.levels.length; j++){
+		Storage.Level level = bay.levels[j + 1];
+		for(int k = 0; k < level.slots.length; k++){
+			Storage.Slot slot = level.slots[k + 1];
+			//Storage.Item storageItem = Storage.Item(product);
+			print(slot.bayID, slot.levelID, slot.slotID);
+			//storageItem.assignedSlot = rack.getSlot(slot.bayID, slot.levelID, slot.slotID);
+		}
+	}
+}
