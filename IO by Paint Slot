@@ -1,0 +1,66 @@
+setviewtext(systemwindow(1), "");
+setviewtext(systemwindow(2), "");
+setviewtext(systemwindow(3), "");
+for(int n = content(model()); n > 1; n--){
+	destroyobject(rank(model(), n));
+}
+
+Object source = Object.create("Source");
+Object Source = Model.find("Source");
+source.location = Vec3(0, 0, 0);
+
+Object queue1 = Object.create("Queue");
+Object Queue1 = Model.find("Queue");
+queue1.location = Vec3(5, 0, 0);
+
+Storage.Object rack = Object.create("Rack");
+Object Rack = Model.find("Rack");
+rack.location = Vec3(10, 0, 0);
+Map dimensions = Rack.getProperty("Dimensions");
+dimensions.NumBays = 2;
+dimensions.NumLevels = 3;
+dimensions.SlotsPerBay = 1;
+Rack.setProperty("Dimensions",dimensions);
+
+Object queue2 = Object.create("Queue");
+Object Queue2 = Model.find("Queue");
+queue2.location = Vec3(20, 0, 0);
+
+TaskExecuter asrsvehicle = Object.create("ASRSvehicle");
+Object ASRSvehicle = Model.find("ASRSvehicle");
+asrsvehicle.location = Vec3(5, -5, 0);
+
+contextdragconnection(source, queue1, "A");
+contextdragconnection(queue1, rack, "A");
+contextdragconnection(rack, queue2, "A");
+contextdragconnection(queue1, asrsvehicle, "S");
+contextdragconnection(asrsvehicle, rack, "S");
+
+Queue1.setProperty("UseTransport", 1);
+Rack.setProperty("UseTransport", 1);
+
+Source.setProperty("ArrivalStyle", 2);
+Table sourceArrivals = source.find(">variables/schedule");
+sourceArrivals.addCol(4, 0);
+sourceArrivals[1][4] = 1;
+for(int i = 2; i <= 6; i++){
+	sourceArrivals.addRow();
+	sourceArrivals[i][1] = 0;
+	sourceArrivals[i][2] = "Product";
+	sourceArrivals[i][3] = 1;
+	sourceArrivals[i][4] = i;
+}
+//source trigger
+/*treenode sourceTriggers = source.find(">variables/OnExit");
+string codeString = sourceTriggers.value;
+sourceTriggers.value = codeString.replace("true", "slot.slotItems.length == 0");*/
+//paint slot
+int type = 1;
+for(int i = 0; i < rack.bays.length; i++){
+	Storage.Bay bay = rack.bays[i + 1];
+	for(int j = 0; j < bay.levels.length; j++){
+		Storage.Level level = bay.levels[j + 1];
+		level.setSlotLabels("Type", type);
+		type++;
+	}
+}
