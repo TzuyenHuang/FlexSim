@@ -1,3 +1,10 @@
+setviewtext(systemwindow(1), "");
+setviewtext(systemwindow(2), "");
+setviewtext(systemwindow(3), "");
+for(int n = content(model()); n > 1; n--){
+	destroyobject(rank(model(), n));
+}
+
 Object source = Object.create("Source");
 Object Source = Model.find("Source");
 source.location = Vec3(0, 0, 0);
@@ -21,9 +28,10 @@ dimensions.NumLevels = 5;
 dimensions.SlotsPerBay = 1;
 Rack.setProperty("Dimensions",dimensions);
 
-/*
-...Rack slot assignment strategy...
-*/
+treenode slotAssignmentStrategy = rack.find(">variables/slotAssignment");
+string codeString = slotAssignmentStrategy.value;
+//slotAssignmentStrategy.value = codeString.replace("true", "slot.slotItems.length == 0");
+slotAssignmentStrategy.value = codeString.replace("!slot.hasSpace(item)", "slot.slotItems.length > 0");
 
 asrsvehicle.setProperty("LiftSpeed", 2);
 asrsvehicle.setProperty("ExtensionSpeed", 2);
